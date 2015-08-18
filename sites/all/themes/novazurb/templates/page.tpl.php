@@ -58,7 +58,9 @@
           <?php print ($alt_main_menu); ?>
         </nav> <!-- /#main-menu -->
       <?php endif; ?>
-
+      <nav id="breadcrumbid">
+      <?php if ($breadcrumb): print $breadcrumb; endif; ?>
+      </nav>
       <?php if ($alt_secondary_menu): ?>
         <nav id="secondary-menu" class="navigation" role="navigation">
           <?php print $alt_secondary_menu; ?>
@@ -122,7 +124,7 @@
 
       <a id="main-content"></a>
 
-      <?php if ($breadcrumb): print $breadcrumb; endif; ?>
+      
 
       <?php if ($title && !$is_front): ?>
         <?php print render($title_prefix); ?>
