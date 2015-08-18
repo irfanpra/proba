@@ -1,0 +1,5 @@
+name = Rmeni
+description = Razvlaceci meni	
+package = ETF stranica
+core = 7.x
+files[] = rmeni.module 

@@ -1,0 +1,6 @@
+name = Predmet
+description = Predmet
+package = ETF stranica
+core = 7.x
+files[] = predmet.install
+files[] = predmet.module 

@@ -1,0 +1,243 @@
+<?php
+/**
+ * @file
+ * Install file for Predmeti module.
+ */
+/**
+ * Implements hook_install().
+ * - Add the body field.
+ * - Configure the body field.
+ * - Create the company name field.
+ */
+function predmet_install() {
+ node_types_rebuild();
+ $types = node_type_get_types();
+ // add the body field to the node type
+ node_add_body_field($types['predmet']);
+ // Load the instance definition for our content type's body
+ $body_instance = field_info_instance('node', 'body', 'predmet');
+ // Configure the body field
+ $body_instance['type'] = 'text_summary_or_trimmed';
+ // Save our changes to the body field instance.
+ field_update_instance($body_instance);
+ // Create all the fields we are adding to our content type.
+ foreach (_predmet_installed_fields() as $field) {
+ field_create_field($field);
+ }
+ // Create all the instances for our fields.
+foreach (_predmet_installed_instances() as $instance) {
+ $instance['entity_type'] = 'node';
+ $instance['bundle'] = 'predmet';
+ field_create_instance($instance);
+ }
+}
+/**
+ * Return a structured array defining the fields created by this content type.
+ * For the job post module there is only one additional field – the company name
+* Other fields could be added by defining them in this function as additional elements
+ * in the array below
+ */ 
+function _predmet_installed_fields() {
+ $t = get_t();
+ return array(
+ 'predmet_naziv' => array(
+ 'field_name' => 'predmet_naziv',
+ 'label' => $t('Naziv predmeta'),
+ 'type' => 'text',
+ ),
+ 'predmet_sifra' => array(
+ 'field_name' => 'predmet_sifra',
+ 'label' => $t('Šifra predmeta'),
+ 'type' => 'text',
+ ),
+ 'predmet_studij' => array(
+ 'field_name' => 'predmet_studij',
+ 'label' => $t('Studij'),
+ 'type' => 'text',
+ ),
+ 'predmet_predavanja' => array(
+ 'field_name' => 'predmet_predavanja',
+ 'label' => $t('Broj sati predavanja'),
+ 'type' => 'text',
+ ),
+ 'predmet_vjezbe' => array(
+ 'field_name' => 'predmet_vjezbe',
+ 'label' => $t('Broj sati vježbi'),
+ 'type' => 'text',
+ ),
+ 'predmet_tutoriali' => array(
+ 'field_name' => 'predmet_tutoriali',
+ 'label' => $t('Broj sati tutoriala'),
+ 'type' => 'text',
+ ),
+ 'predmet_bodovi' => array(
+ 'field_name' => 'predmet_bodovi',
+ 'label' => $t('Broj ECTS bodova'),
+ 'type' => 'text',
+ ),
+ 'predmet_nastavnik' => array(
+ 'field_name' => 'predmet_nastavnik',
+ 'label' => $t('Nastavnik'),
+ 'type' => 'text',
+ ),
+  'predmet_izborni' => array(
+ 'field_name' => 'predmet_izborni',
+ 'label' => $t('Izborni predmet'),
+ 'type' => 'list_boolean',
+ 'cardinality' => 1,
+      'settings' => array(
+        // Make sure that 0 works as a 'on' value'.
+        'allowed_values' => array(1 => 'Ne', 0 => 'Izborni predmet'),
+      ),
+ ),
+ );
+}
+/**
+ * Return a structured array defining the field instances associated with this content type.
+*/
+function _predmet_installed_instances() {
+ $t = get_t();
+ return array(
+ 'predmet_naziv' => array(
+ 'field_name' => 'predmet_naziv',
+ 'label' => $t('Naziv predmeta'),
+ 'widget' => array(
+ 'type' => 'text_textfield',
+ ),
+ 'display' => array(
+ 'example_node_list' => array(
+ 'label' => $t('Naziv predmeta'),
+ 'type' => 'text',
+ ),
+ ),
+ ),
+ 'predmet_sifra' => array(
+ 'field_name' => 'predmet_sifra',
+ 'label' => $t('Šifra predmeta'),
+'widget' => array(
+ 'type' => 'text_textfield',
+ ),
+ 'display' => array(
+ 'example_node_list' => array(
+ 'label' => $t('Šifra predmeta'),
+ 'type' => 'text',
+ ),
+ ),
+ ),
+ 'predmet_studij' => array(
+ 'field_name' => 'predmet_studij',
+ 'label' => $t('Studij'),
+'widget' => array(
+ 'type' => 'text_textfield',
+ ),
+ 'display' => array(
+ 'example_node_list' => array(
+ 'label' => $t('Studij'),
+ 'type' => 'text',
+ ),
+ ),
+ ),
+ 'predmet_predavanja' => array(
+ 'field_name' => 'predmet_predavanja',
+ 'label' => $t('Broj sati predavanja'),
+'widget' => array(
+ 'type' => 'text_textfield',
+ ),
+ 'display' => array(
+ 'example_node_list' => array(
+ 'label' => $t('Broj sati predavanja'),
+ 'type' => 'text',
+ ),
+ ),
+ ),
+ 'predmet_vjezbe' => array(
+ 'field_name' => 'predmet_vjezbe',
+ 'label' => $t('Broj sati vježbi'),
+'widget' => array(
+ 'type' => 'text_textfield',
+ ),
+ 'display' => array(
+ 'example_node_list' => array(
+ 'label' => $t('Broj sati vježbi'),
+ 'type' => 'text',
+ ),
+ ),
+ ),
+ 'predmet_tutoriali' => array(
+ 'field_name' => 'predmet_tutoriali',
+ 'label' => $t('Broj sati tutoriala'),
+'widget' => array(
+ 'type' => 'text_textfield',
+ ),
+ 'display' => array(
+ 'example_node_list' => array(
+ 'label' => $t('Broj sati tutoriala'),
+ 'type' => 'text',
+ ),
+ ),
+ ),
+ 'predmet_bodovi' => array(
+ 'field_name' => 'predmet_bodovi',
+ 'label' => $t('Broj ECTS bodova'),
+'widget' => array(
+ 'type' => 'text_textfield',
+ ),
+ 'display' => array(
+ 'example_node_list' => array(
+ 'label' => $t('Broj ECTS bodova'),
+ 'type' => 'text',
+ ),
+ ),
+ ),
+ 'predmet_nastavnik' => array(
+ 'field_name' => 'predmet_nastavnik',
+ 'label' => $t('Nastavnik'),
+	'widget' => array(
+ 'type' => 'text_textfield',
+ ),
+ 'display' => array(
+ 'example_node_list' => array(
+ 'label' => $t('Nastavnik'),
+ 'type' => 'text',
+ ),
+ ),
+ ),
+ 'predmet_izborni' => array(
+ 'field_name' => 'predmet_izborni',
+ 'label' => $t('Izborni predmet'),
+ 'widget' => array(
+ 'type' => 'options_onoff',
+ ),
+ ),
+ );
+}
+/**
+ * Implements hook_uninstall().
+ */
+function predmet_uninstall() {
+ // Gather all the example content that might have been created while this
+ // module was enabled.
+ $sql = 'SELECT nid FROM {node} n WHERE n.type = :type';
+ $result = db_query($sql, array(':type' => 'predmet'));
+ $nids = array();
+ foreach ($result as $row) {
+ $nids[] = $row->nid;
+ }
+ // Delete all the nodes at once
+ node_delete_multiple($nids); 
+ // Loop over each of the fields defined by this module and delete
+ // all instances of the field, their data, and the field itself.
+ foreach (array_keys(_predmet_installed_fields()) as $field) {
+ field_delete_field($field);
+ }
+ // Loop over any remaining field instances attached to the predmet
+ // content type (such as the body field) and delete them individually.
+ $instances = field_info_instances('node', 'predmet');
+ foreach ($instances as $instance_name => $instance) {
+ field_delete_instance($instance);
+ }
+ // Delete our content type
+ node_type_delete('predmet');
+ // Purge all field infromation
+ field_purge_batch(1000);
+} 

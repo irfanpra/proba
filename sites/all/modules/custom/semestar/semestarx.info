@@ -1,0 +1,6 @@
+name = Semestarx
+description = Semestar
+package = ETF stranica
+core = 7.x
+files[] = semestarx.install
+files[] = semestarx.module 
