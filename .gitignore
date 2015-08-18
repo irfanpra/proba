@@ -1,11 +1,9 @@
 # Ignore configuration files that may contain sensitive information.
-<<<<<<< HEAD
 sites/*/settings*.php
 
 # Ignore paths that contain user-generated content.
 sites/*/files
 sites/*/private
-=======
 sites/*/*settings*.php
 
 # Ignore paths that contain generated content.
@@ -25,6 +23,7 @@ robots.txt
 sites/all/README.txt
 sites/all/modules/README.txt
 sites/all/themes/README.txt
+sites/default/default.settings.php
 
 # Ignore everything but the "sites" folder ( for non core developer )
 .htaccess
@@ -41,4 +40,3 @@ xmlrpc.php
 /profiles
 /scripts
 /themes
->>>>>>> 3ab18623082987a17e3926e8f51da49413dd7a09
